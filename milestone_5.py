@@ -1,5 +1,4 @@
 import random
-import re
 class Hangman:
     def __init__(self, word_list, num_lives =5):
         self.word_list = word_list
@@ -36,6 +35,11 @@ class Hangman:
             if user_guess not in self.random_word :
                 self.num_lives = self.num_lives - 1
                 print(f"You have {self.num_lives} lives left")
+
+
+    def display_word(self):
+        displayed_word = [letter if letter != '_' and letter in self.list_of_guesses else '_' for letter in self.random_word]
+        print(" ".join(displayed_word))
 
 
     def ask_for_input(self):
@@ -76,18 +80,19 @@ def play_game(word_list):
     game = Hangman(word_list, num_lives)
     while True:
         if game.num_lives == 0:
+            print(f"The word was {game.random_word}")
             print("You lost")
-            break
-        
-        if game.num_letters >0:
+            break    
+        if game.num_letters > 0:
+            game.display_word()
             game.ask_for_input()
         else:
-                print("Congratulations. You won the game!")
-                break
-    hangman_game = Hangman(word_list)
-    hangman_game.ask_for_input()
-    print(game.random_word)
+            game.display_word()
+            print("Congratulations. You won the game!")
+            print(f"The word was {game.random_word}!")
+            break
+
 
 word_list = ["apple", "orange", "mango", "pineapple", "banana"]
+Hangman.display_word 
 play_game(word_list)
-
